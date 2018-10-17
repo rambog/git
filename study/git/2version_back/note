@@ -1,0 +1,6 @@
+git log : show commit record
+	  git log --pretty=oneline, show succinct commit record
+
+git reset : reset before version
+	    git reset --hard HEAD^
+	    git reset --hard commitid

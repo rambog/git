@@ -1,0 +1,10 @@
+1 : ssh-keygen -t -rsa -C "email"
+    get ssh key
+
+2 : add ssh public key to your github account
+
+3 : create new repository on your github (the repos name is learngit
+
+4 : git remote add origin https://github.com/<login name>/git.<learngit>
+
+5 : git push -u origin master
