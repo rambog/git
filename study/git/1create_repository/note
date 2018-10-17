@@ -1,0 +1,8 @@
+version repository:
+
+git init : make cur dir to a git local repository
+	   exec the cmd, will find a dir of name .git
+
+git add
+git commit : the two cmd commit the modify to local repository
+	     git commit -m <msg> : add version commit instruction

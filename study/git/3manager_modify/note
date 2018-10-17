@@ -1,0 +1,3 @@
+git status : check cur git status
+
+git diff commitid -- file : check the diff
