@@ -1,0 +1,17 @@
+open and openat function:
+
+int open(const char *path, int oflag, ... /* mode_t mode */);
+int openat(int fd, const char *path, int oflag, ... /* mode_t mode */);
+
+oflag:
+    O_RDONLY        
+    O_WRONLY
+    O_RDWR
+    O_NONBLOCK      if path refers to a FIFO, a block special file, or a character special file, this
+                    option sets the the nonblocking mode for both the opening of the file and subsequent
+                    I/O
+
+
+my note:
+1 , on my machine, can't open a dir, strerrno is Is a directory
+2 , flag O_EXEC O_SEARCH is undeclared

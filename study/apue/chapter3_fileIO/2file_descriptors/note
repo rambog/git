@@ -1,0 +1,9 @@
+by convention:
+    file descriptor 0 with the standard input of a process
+    file descriptor 1 with the standard output of a process
+    file descriptor 2 with the standard error of a process
+
+STDIN_FILENO, STDOUT_FILENO, STDERR_FILENO in the <unistd.h> header
+stdout, stdin, stderr in the <stdio.h> header
+
+File descriptors range from 0 through OPEN_MAX-1 (sysconf)
