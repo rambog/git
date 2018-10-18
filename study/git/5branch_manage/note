@@ -1,0 +1,11 @@
+git branch : get current branck info
+
+git branch <name> : create a branch
+
+git checkout <name> : switch branch
+
+git checkout -b <name> : create and switch branch
+
+git merge <name> : merge branch name to current branch
+
+git branch -d <name> : delete branch
