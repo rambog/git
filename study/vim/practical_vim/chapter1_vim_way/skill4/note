@@ -1,0 +1,7 @@
+f : ; ,
+t : ; ,
+F : ; ,
+T : ; ,
+/pattern<CR> : n N
+?pattern<CR> : n N
+:s/target/replacement & u

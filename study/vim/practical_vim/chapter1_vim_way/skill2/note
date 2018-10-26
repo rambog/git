@@ -1,0 +1,10 @@
+A : $a
+c : delete some and enter insert
+
+C : c$
+s : cl
+S : ^c
+I : ^i
+A : $a
+o : A<CR>
+O : ko
