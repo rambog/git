@@ -1,0 +1,11 @@
+:ls : show all buffer
+:bnext
+:bprev
+:blast
+:bfirst
+:buffer<num> b<num>
+:bdelete <file1> <file2> ...
+
+:args
+* only target dir
+** target dir and recur child dir

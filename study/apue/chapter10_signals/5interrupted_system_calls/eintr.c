@@ -37,9 +37,17 @@ main(int argc, char *argv[])
         }
     }
 
+#if 1
+    FILE *fp = fopen(argv[1], "rb+");
     while (-1 == wait(NULL)) {
-        perror("parent child err");
+        fprintf(fp, "parent syscall intr : %m\n");
+        fflush(fp);
     }
+#else
+    char tmpbuf[128]; 
+    if (read(STDIN_FILENO, tmpbuf, sizeof(tmpbuf)) < 0) 
+        perror("read from stdin");
+#endif
 
     return 0;
 }

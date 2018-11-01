@@ -1,3 +1,7 @@
 if a process caught a signal while the process was blocked in a "slow" system call
 the system call was interrupted.
 The system call returned an error and errno was set to EINTR.
+
+In Linux 3.2.0:
+when signal handlers are installed with the signal function, interrupted system calls 
+will be restarted
