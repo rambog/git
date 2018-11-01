@@ -1,1 +1,23 @@
+set number
+syntax on
 
+set smartindent
+
+set showmatch
+
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+
+set autoindent
+
+set ruler
+
+set nohls
+
+filetype on
+
+source $VIMRUNTIME/ftplugin/man.vim
+cmap man Man
+nmap K :Man <cword><CR>

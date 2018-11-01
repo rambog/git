@@ -1,0 +1,44 @@
+one problem with these early versions was that action for a signal was
+reset to its default each time the signal occurred
+eg:
+
+int sig_int();
+...
+signal(SIGINT, sig_int);
+...
+
+sig_int()
+{
+                                    /* in here may occur another signal so new signal will lost */
+    signal(SIGINT, sig_int);
+}
+
+another problem :
+prevent the following signals from interrupting me, but remember if they do occur
+er:
+
+int sig_int();
+int sig_int_flag;
+
+main()
+{
+    signal(SIG_INT, sig_int);
+    ...
+    while (sig_int_flag == 0)
+                                    /* if in here occur a signal 
+                                       judge the sig_int_flag == 0
+                                       occur signal sig_int_flag = 1
+                                       pause()
+
+                                       the system maybe pause forever
+                                    */
+        pause();
+
+    ...
+}
+sig_int()
+{
+                                    /* in here may lost one signal */
+    signal(SIGINT, sig_int);
+    sig_int_flag = 1;
+}

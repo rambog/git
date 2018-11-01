@@ -1,0 +1,23 @@
+Ctrl + D : EOF
+Ctrl + C : SIGINT
+Ctrl + \ : SIGQUIT
+Ctrl + Z : SIGTSTP
+abort()  : SIGABRT
+alarm()  : SIGALRM
+illmem   : SIGSEGV
+child    : SIGCHLD
+flo err  : SIGFPE
+
+cant ignore and catch :
+        SIGKILL SIGSTOP (in bits/signum.h unblockable)
+
+when trigger signal:
+        1, ignore
+        2, catch (get to application)
+        3, exec def
+
+
+#include <signal.h>
+void (*signal(int signo, void (*func)(int)))(int);
+func : SIG_IGN SIG_DEF sig_handler
+ret : SIG_ERR of before sig_handler
