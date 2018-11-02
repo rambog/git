@@ -1,0 +1,2 @@
+if the process specifically sets its(SIGCLD) disposition to SIG_IGN
+    children of the calling process will not generate zombie processes.

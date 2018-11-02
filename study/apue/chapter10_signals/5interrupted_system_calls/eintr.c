@@ -15,6 +15,8 @@ main(int argc, char *argv[])
     signal(SIGINT, sig_func);
     signal(SIGQUIT, sig_func);
     signal(SIGTSTP, sig_func);
+    signal(SIGUSR1, SIG_IGN);
+    signal(SIGUSR2, SIG_IGN);
 
 #if 0
     while (1) {

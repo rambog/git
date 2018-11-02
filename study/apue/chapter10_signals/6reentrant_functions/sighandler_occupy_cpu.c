@@ -5,6 +5,7 @@
 #include <pthread.h>
 #include <signal.h>
 #include <errno.h>
+#include <time.h>
 
 static void sig_func(int);
 static void* thr_func(void *);
@@ -12,8 +13,8 @@ static void* thr_func(void *);
 int
 main(int argc, char *argv[])
 {
-    pthread_t tid[8];
-    char tmp[8][12];
+    pthread_t tid[2];
+    char tmp[2][12];
     int ret;
 
     signal(SIGQUIT, sig_func);
@@ -38,14 +39,25 @@ main(int argc, char *argv[])
 static void
 sig_func(int signo)
 {
+    struct timespec tme, tmb;
+
     if (signo == SIGQUIT)
         exit(0);
 
     if (signo == SIGINT) {
+        clock_gettime(CLOCK_MONOTONIC, &tmb);
+#if 0
         unsigned int tick = 0x00;
         while (tick != ~0)
             tick++;
-        printf("SIGINT sleep end\n");
+#else
+        sleep(3);
+#endif
+
+        clock_gettime(CLOCK_MONOTONIC, &tme);
+        unsigned int times = (tme.tv_sec - tmb.tv_sec)*1000 + (tme.tv_nsec - tmb.tv_nsec)/1000000;
+
+        printf("SIGINT sleep(%ums) end\n", times);
     }
 }
 

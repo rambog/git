@@ -1,0 +1,15 @@
+int kill(pid_t pid, int signo)
+
+pid > 0     the signal is sent to the process whose process ID is pid
+pid == 0    the signal is sent to all process whose process group ID equals the
+            process group ID of the sender and for which the sender has permission
+            to send the signal. Note that the term all processes excludes an 
+            implementation-defined set of system processes. For most UNIX
+            systems, this set of system processes includes the kernel processes and init.
+pid < 0     the signal is sent to all processes whose process group ID equal the
+            absolute value of pid and for which the sender has permission to send the
+            signal. Again, the set of all processes excludes certain system processes
+            as described earlier.
+pid == -1   the signal is sent to all processes on the system for which the sender has
+            permission to send the signal. As before, the set of processes excludes certain
+            system processes.

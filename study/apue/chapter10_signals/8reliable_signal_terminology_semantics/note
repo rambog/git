@@ -1,0 +1,5 @@
+If a signal that is blocked is generated for a process, and if
+the action for that signal is either the default action or to
+catch the signal, the the signal remains pending for the process
+until the process either unblocks the signal or changes the 
+action to ignore the signal
