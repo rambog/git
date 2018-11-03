@@ -22,12 +22,15 @@ main(int argc, char *argv[])
     unsigned int remain;
 
     remain = alarm(1);
+    printf("1 alarm 1s\n");
     sleep(2);
 
     remain = alarm(1);
+    printf("2 alarm 1s\n");
     sleep(2);
 
     remain = alarm(0);
+    printf("1 alarm 0s\n");
     sleep(2);
 
     while (1) 
