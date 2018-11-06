@@ -1,0 +1,2 @@
+calling abort will deliver an unsuccessful termination notification to
+the host environment by calling raise(SIGABRT)
