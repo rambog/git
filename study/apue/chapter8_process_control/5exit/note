@@ -1,0 +1,20 @@
+a process can terminate normally in five ways:
+1 , executing a return from the main function.
+2 , calling the exit function
+3 , calling the _exit or _Exit function
+4 , executing a return from the start routine of the last thread in the process
+5 , calling the pthread_exit function from the last thread in the process
+
+the three forms of abnormal termination are as follows:
+1 , calling abort
+2 , when the process receives certain signals
+3 , the last thread responds to cancellation request
+
+Regardless of how a process terminates, the same code in the kernel is eventually
+executed. This kernel code closes all the open descriptors for the process, releases
+the memory that it was using, and so on.
+
+Note that we differentiate between the exit status, which is the argument to one of
+the three exit functions or the return value from main, and the termination status.
+The exit status is converted into a termination status by the kernel when _exit is
+finally called.

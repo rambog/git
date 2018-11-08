@@ -1,0 +1,11 @@
+All contemporary UNIX systems support interpreter files. These files are text files that
+begin with a line of the form
+#! pathname [optional-argument]
+
+The pathname is normally an absolute pathname, since no special operations are performed
+on it(i.e.,PATH is not used). The recognition of these files is done within the kernel
+as part of processing the exec system call. The actual file that gets executed by the 
+kernel is not the interpreter file, buf rather the file specified by the pathname on the
+first line of the interpreter file. Be sure to differentiate between the interpreter file
+--a text file that begins with #!--and the interpreter, which is sepcified by the pathname
+on the first line of the interpreter file.

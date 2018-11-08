@@ -1,0 +1,7 @@
+A thread consists of the information necessary to represent an execution context
+within a process. This includes a thread ID that identifies the thread within a
+process, a set of register values, a stack, a scheduling priority and policy, a
+signal mask, an errno variable, and thread-specific data, Everything within a 
+process is sharable among the threads in a process, including the text of the
+executable program, the program's global and heap memory, the stacks and the 
+file descriptors.
