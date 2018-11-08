@@ -1,0 +1,5 @@
+Another difference between the two functions is that vfork guarantees that the
+child runs first, until the child calls exec or exit. When the child calls either
+of these functions, the parent resumes. (This can lead to deadlock if the child
+depends on further actions of the parent before calling either of these two 
+functions.)
