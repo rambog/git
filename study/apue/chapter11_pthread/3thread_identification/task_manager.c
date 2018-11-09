@@ -41,7 +41,10 @@ thr_func(void *arg)
 
         while (tmp != NULL) {
             if (pthread_equal(pthread_self(), tmp->t_tid)) {
-                prev->t_next = tmp->t_next;
+                if (prev->t_next == tmp->t_next)
+                    plist->t_head = NULL;
+                else
+                    prev->t_next = tmp->t_next;
                 break;
             }
             prev = tmp;
@@ -94,6 +97,7 @@ main(int argc, char *argv[])
     char tmpstr[128];
     struct task *tmp;
     unsigned char sigflag = 0;
+    unsigned long long tick = 0;
 
     for ( ; ; ) {
         tmp = NULL;
@@ -105,13 +109,10 @@ main(int argc, char *argv[])
         }
         
         //srand(time(NULL));
-
-        factask->t_tid = tid[rand()%4];
+        factask->t_tid = tid[(tick++)%4];
         factask->t_next = NULL;
-
         memset(tmpstr, 0x00, sizeof(tmpstr));
         sprintf(tmpstr, "%ld", (long)factask->t_tid);
-        printf("deal data : %s\n", tmpstr);
         factask->t_data = (void*)strdup(tmpstr);
         factask->t_handler = taskhandler;
 
