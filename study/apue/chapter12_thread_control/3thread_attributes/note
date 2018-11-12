@@ -1,0 +1,20 @@
+1 , Each object is associated with its own type of attribute object (threads with
+    thread attrbutes, mutexes with mutex attrbutes, and so on). An attribute object
+    can represent multiple attributes. The attribute object is opaque to applications.
+    This means that applications aren't supposed to know anything about its internal
+    structure, which promotes application portability. Instead, functions are provided
+    to manage the attributes objects.
+
+2 , An initialization function exists to set the attrbutes to their default values.
+
+3 , Another function exists to destory the attributes object. If the initialization
+    function allocated any resources associated with the attributes object, the destroy
+    function frees those resources.
+
+4 , Each attribute has a function to get the value of the attribute from the attribute
+    object. Because the function returns 0 on success of an error number on failure,
+    the value is returned to the caller by storing it in the memory location specified
+    by one of the arguments.
+
+5 , Each attribute has a function to set the value of the attribute. In this case, the
+    value is passed as an argument, by value.

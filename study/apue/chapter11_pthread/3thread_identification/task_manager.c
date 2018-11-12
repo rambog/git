@@ -101,7 +101,6 @@ main(int argc, char *argv[])
 
     for ( ; ; ) {
         tmp = NULL;
-        sigflag = 0;
         factask = (struct task*)malloc(sizeof(struct task));
         if (factask == NULL) {
             perror("malloc err");
@@ -117,22 +116,14 @@ main(int argc, char *argv[])
         factask->t_handler = taskhandler;
 
         pthread_mutex_lock(&mtask.t_mx);
-    
         tmp = mtask.t_head;
-
-        while (tmp != NULL && tmp->t_next != NULL)
-            tmp = tmp->t_next;
-
-        if (tmp == NULL) {
-            mtask.t_head = factask;
+        factask->t_next = mtask.t_head;
+        mtask.t_head = factask;
+        if (tmp == NULL)
             pthread_cond_broadcast(&mtask.t_cd);
-        } else {
-            tmp->t_next = factask;
-        }
-
         pthread_mutex_unlock(&mtask.t_mx);
 
-        usleep(100*1000);
+        usleep(10*1000);
     }
 
     return 0;

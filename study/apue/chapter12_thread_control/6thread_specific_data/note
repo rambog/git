@@ -1,0 +1,13 @@
+First, sometimes we need to maintain data on a per-thread basis. Since there is no
+guarantee that thread IDs are small, sequential integers, we can't simply allocate
+an array of per-thread data and use the thread ID as the index. Even if we could
+depend on small, sequential thread IDs, we'd like a little extra protection so that
+one thread can't mess with another's data.
+The second reasion for thread-private data is to provide a mechanism for adapting
+process-based interfaces to a multithreaded environment. An obvious example of this
+is errno. Recall the discussion of errno in Section 1.7. Older interfaces (before
+the advent of threads) defined errno as an integer that is accessible globally witin
+the context of a process. System calls and library routines set errno as a side effect
+of failing. To make it possible for threads to use these same system calls and library
+routines, errno is redefined as thread-private data. Thus one thread making a call 
+that sets errno dosen't affect the value of errno for the other threads in the proess.
