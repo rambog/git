@@ -1,0 +1,3 @@
+Nonblocking I/O lets us issue an I/O operation, such as an open, read, or wirte,
+and not have it block forever. If the operation cannot be completed, the can 
+returns immediately with an error noting that the operation would have blocked.

@@ -1,0 +1,6 @@
+record locking is the term normally used to describe the ability of a process to
+prevent other processes from modifying a region of a file while the first process
+is reading or modifying that portion of the file. Under the UNIX System, "record"
+is a misnomer; the UNIX kernel does not have a notion of records in a file. A 
+better term is byte-range locking, given that it is a range of a file(possibly the
+entire file)that is locked.
