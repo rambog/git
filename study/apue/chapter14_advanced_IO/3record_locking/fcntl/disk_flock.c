@@ -1,66 +1,63 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include <unistd.h>
 #include <errno.h>
 #include <fcntl.h>
 
 int
-main(void)
+main()
 {
-    int fd = open("tmp.txt", O_RDWR|O_CREAT|O_TRUNC, S_IRWXU);
-    if (fd < 0) perror("open err");
+    int fdf = open("tmp.txt", O_RDWR|O_CREAT|O_TRUNC, S_IRWXU);
+    if (fdf < 0) perror("father open err");
 
-    struct flock flck;
-    int err;
-    char *foo = "paren_asdfghjk\n";
-    err = write(fd, foo, strlen(foo));
-    if (err < 0) perror("write err");
+    struct flock fflock;
+    memset(&fflock, 0x00, sizeof(struct flock));
+    int ferr;
 
-    flck.l_type = F_WRLCK;
-    flck.l_whence = SEEK_SET;
-    flck.l_start = 0;
-    flck.l_len = 0;
-    err = fcntl(fd, F_GETLK, &flck);
-    if (err < 0) perror("fcntl err");
-    if (flck.l_type != F_UNLCK)
-        printf("flck probe failed locked pid:%ld\n", flck.l_pid);
+    fflock.l_type = F_WRLCK;
+    fflock.l_whence = SEEK_SET;
+    fflock.l_start = 0;
+    fflock.l_len = 0;
+    ferr = fcntl(fdf, F_SETLKW, &fflock);
+    if (ferr < 0) perror("father setlkw err");
 
-    err = fcntl(fd, F_SETLK, &flck);
-    if (err < 0) perror("fcntl err");
-
-    pid_t pid = fork();
+    pid_t pid;
+    pid = fork();
     if (pid == 0) {
-        //close(fd);
-        //fd = open("tmp.txt", O_RDWR);
-        //if (fd < 0) perror("child open err");
+        close(fdf);
+        printf("I am child : %ld\n", (long)getpid());
 
-        flck.l_type = F_WRLCK;
-        flck.l_whence = SEEK_SET;
-        flck.l_start = 0;
-        flck.l_len = 0;
-        err = fcntl(fd, F_GETLK, &flck);
-        if (err < 0) perror("fcntl err");
-        if (flck.l_type != F_UNLCK)
-            printf("child try flock failed\n");
-        else printf("file not lock : %ld\n", (long)flck.l_pid);
+        int cdf = open("tmp.txt", O_RDWR);
+        if (cdf < 0) perror("child open err");
 
-        flck.l_type = F_WRLCK;
-        err = fcntl(fd, F_SETLK, &flck);
-        if (err < 0) perror("fcntl setlk err");
+        struct flock cflock;
+        int cerr;
 
-        foo = "child_qwertyui\n";
-        err = write(fd, foo, strlen(foo));
-        if (err < 0) perror("write err");
+        memset(&cflock, 0x00, sizeof(struct flock));
 
-        printf("child will exit\n");
+        cflock.l_type = F_WRLCK;
+        cflock.l_whence = SEEK_SET;
+        cflock.l_start = 0;
+        cflock.l_len = 0;
+        cerr = fcntl(cdf, F_GETLK, &cflock);
+        if (cerr < 0) perror("child getlk err");
+        if (cflock.l_type == F_UNLCK)
+            printf("child curlock can lock\n");
+        else
+            printf("child curfile lock by process:%ld\n", cflock.l_pid);
+
+        cflock.l_type = F_WRLCK;
+        cerr = fcntl(cdf, F_SETLK, &cflock);
+        if (cerr < 0) perror("child setlk err");
+
         exit(0);
     }
 
-    pid = waitpid(pid, NULL, 0);
-    if (pid < 0) perror("waitpid err");
-    else printf("wait child:%ld\n", (long)pid);
-    
-    return 0;
+    printf("I am parent : %ld\n", (long)getpid());
+    if (pid == waitpid(pid, NULL, 0))
+        printf("wait pid %ld\n", (long)pid);
+
+    exit(0);
 }
