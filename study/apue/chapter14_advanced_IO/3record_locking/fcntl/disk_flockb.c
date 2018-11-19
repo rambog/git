@@ -30,6 +30,7 @@ main(void)
     if (flck.l_type != F_UNLCK)
         printf("flck probe failed locked pid:%ld\n", flck.l_pid);
 
+    flck.l_type = F_WRLCK;
     err = fcntl(fd, F_SETLKW, &flck);
     if (err < 0) perror("fcntl err");
 
@@ -40,6 +41,7 @@ main(void)
         //fd = open("tmp.txt", O_RDWR);
         //if (fd < 0) perror("child open err");
         printf("I am child : %ld\n", (long)getpid());
+        memset(&flck, 0x00, sizeof(struct flock));
 
         flck.l_type = F_WRLCK;
         flck.l_whence = SEEK_SET;

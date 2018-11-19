@@ -1,0 +1,14 @@
+A descriptor in the read set is considered ready if a read from that
+descriptor won't block
+
+A descriptor in the write set is considered ready if a write to that
+descriptor won't block
+
+A descriptor in the exception set is considered ready if an exception
+condition is pending on that descriptor. Currently, an exceptopn cond-
+tion corrsponds to either the arrival of out-of-band data on a network
+connection or certain conditons occurring on a pseudo terminal that has
+been placed into packet mode.
+
+File descriptors for regular files always return ready for reading writing
+and excption conditions.
