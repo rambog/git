@@ -21,3 +21,51 @@ filetype on
 source $VIMRUNTIME/ftplugin/man.vim
 cmap man Man
 nmap K :Man <cword><CR>
+
+"bef add some in new file
+autocmd BufNewFile *.[ch],*.c,*.cpp exec ":call SetTitle()"
+
+func SetComment()
+    call setline(1,  "/*======================================================================")
+    call setline(2,  "*        filename: ".expand("%:t"))
+    call setline(3,  "*        author: rambogui")
+    call setline(4,  "*        data: ".strftime("%Y-%m-%d %H:%M:%S"))
+    call setline(5,  "======================================================================*/")
+    call setline(6,  "")
+endfunc
+
+func SetHeadC()
+    call setline(7, "#include <stdio.h>")
+    call setline(8, "#include <stdlib.h>")
+    call setline(9, "#include <string.h>")
+    call setline(10,"#include <unistd.h>")
+    call setline(11, "")
+    call setline(12, "int main(int argc, char *argv[])")
+    call setline(13, "{")
+    call setline(14, "")
+    call setline(15, "    return 0;")
+    call setline(16, "}")
+    call cursor(14,1)
+endfunc
+
+func SetHeadCpp()
+    call setline(7, "#include <iostream>")
+    call setline(8, "")
+    call setline(9, "int main(int argc, char *argv[])")
+    call setline(10, "{")
+    call setline(11, "")
+    call setline(12, "    return 0;")
+    call setline(13, "}")
+    call cursor(11,1)
+endfunc
+
+func SetTitle()
+    call SetComment()
+
+    if &filetype == 'c'
+        call SetHeadC()
+    elseif &filetype == 'cpp'
+        call SetHeadCpp()
+    endif
+endfunc
+"end add some in new file
