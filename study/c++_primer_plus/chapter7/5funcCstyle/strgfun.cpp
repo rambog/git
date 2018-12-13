@@ -1,0 +1,36 @@
+/*======================================================================
+*        filename: strgfun.cpp
+*        author: rambogui
+*        data: 2018-11-29 15:51:42
+======================================================================*/
+
+#include <iostream>
+unsigned int c_in_str(const char * str, char ch);
+int main(int argc, char *argv[])
+{
+    using namespace std;
+
+    char mmm[15] = "minimum";
+
+    char *wail = "ululate";
+
+    unsigned int ms = c_in_str(mmm, 'm');
+    unsigned int us = c_in_str(wail, 'u');
+
+    cout << ms << " m characters in " << mmm << endl;
+    cout << us << " u characters in " << wail << endl;
+
+    return 0;
+}
+
+unsigned int c_in_str(const char *str, char ch)
+{
+    unsigned int count = 0;
+
+    while (*str) {
+        if (*str == ch)
+            count++;
+        str++;
+    }
+    return count;
+}
