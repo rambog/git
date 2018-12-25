@@ -16,11 +16,18 @@ public:
 };
 
 double Example::rate = 6.5;
-const int Example::vecSize;
+//const int Example::vecSize;
 vector<double> Example::vec(vecSize);
+
+void print(const int &ref)
+{
+    std::cout << ref << std::endl;
+}
 
 int main(int argc, char *argv[])
 {
     std::cout << Example::vecSize << std::endl;
+    //print(Example::vecSize);
+    const int &ref = Example::vecSize;
     return 0;
 }
