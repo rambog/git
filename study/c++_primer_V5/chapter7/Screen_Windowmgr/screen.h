@@ -8,6 +8,22 @@
 #include <string>
 #include <vector>
 
+class Screen;
+
+class Window_mgr {
+public:
+    typedef std::vector<Screen>::size_type ScreenIndex;
+
+    Window_mgr();
+    
+    void clear(ScreenIndex);
+
+private:
+    std::vector<Screen> screens/*{Screen(24, 80, ' ')}*/;
+};
+
+
+
 class Screen {
 public:
     typedef std::string::size_type pos;
@@ -31,15 +47,16 @@ public:
     const Screen &display(std::ostream &os) const
         { do_display(os); return *this; }
 
+    pos size() const;
+    //typedef std::string::size_type pos;
+
 private:
     pos cursor = 0;
     pos height = 0, width = 0;
     std::string contents;
     
     void do_display(std::ostream &os) const { os << contents; }
-};
 
-class Window_mgr {
-private:
-    std::vector<Screen> screens{Screen(24, 80, ' ')};
+//friend class Window_mgr;
+friend void Window_mgr::clear(ScreenIndex);
 };

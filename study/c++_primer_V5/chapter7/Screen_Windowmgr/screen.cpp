@@ -5,6 +5,7 @@
 ======================================================================*/
 
 #include <iostream>
+#include <string>
 #include "screen.h"
 
 Screen &Screen::move(pos r, pos c)
@@ -31,3 +32,23 @@ Screen &Screen::set(pos r, pos col, char ch)
     contents[r*width + col] = ch;
     return *this;
 }
+
+Screen::pos Screen::size() const
+{
+    return height*width;
+}
+
+
+
+/* window_mgr */
+Window_mgr::Window_mgr()
+{
+    screens.push_back(Screen(24, 80, ' '));
+}
+
+void Window_mgr::clear(ScreenIndex i)
+{
+    Screen &s = screens[i];
+    s.contents = std::string(s.height * s.width, ' ');
+}
+

@@ -9,11 +9,20 @@
 
 class Sales_data {
 public:
-    Sales_data() =default;
+    //Sales_data() =default;
     Sales_data(const std::string &s, unsigned n, double p) :
-                bookNo(s), units_sold(n), revenue(p*n) { }
+                bookNo(s), units_sold(n), revenue(p*n)
+                { std::cout << "constructor\n"; }
+    #if 0
     Sales_data(const std::string &s) : bookNo(s) { }
-    explicit Sales_data(std::istream &);
+    Sales_data(std::istream &);
+    #endif
+    Sales_data() : Sales_data("", 0, 0)
+        { std::cout << "delegating1\n"; }
+    Sales_data(std::string s) : Sales_data(s, 0, 0)
+        { std::cout << "delegating2\n"; }
+    Sales_data(std::istream &is) : Sales_data()
+        { std::cout << "delegating3\n"; read(is, *this); }
 
     std::string isbn() const { return bookNo; }
     Sales_data &combine(const Sales_data &);
