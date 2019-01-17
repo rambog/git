@@ -6,6 +6,11 @@
 
 #include "dullinklist.h"
 
+bool dullinklist::elem_type::operator<(const elem_type &rhs)
+{
+    return elem < rhs.elem;
+}
+
 void dullinklist::reset()
 {
     dul_node *tmp = head->next;
@@ -64,6 +69,32 @@ void dullinklist::push_back(std::initializer_list<elem_type> il)
     for (std::initializer_list<elem_type>::iterator beg = il.begin();
         beg != il.end(); ++beg)
         push_back(*beg);
+}
+
+void dullinklist::merge_list(const dullinklist &lhs, const dullinklist &rhs)
+{
+    dul_node *tmpl = lhs.head->next;
+    dul_node *tmpr = rhs.head->next;
+
+    while (tmpl != lhs.head && tmpr != rhs.head) {
+        if (tmpl->data < tmpr->data) {
+            push_back(tmpl->data);
+            tmpl = tmpl->next;
+        } else {
+            push_back(tmpr->data);
+            tmpr = tmpr->next;
+        }
+    }
+
+    while (tmpl != lhs.head) {
+        push_back(tmpl->data);
+        tmpl = tmpl->next;
+    }
+
+    while (tmpr != rhs.head) {
+        push_back(tmpr->data);
+        tmpr = tmpr->next;
+    }
 }
 
 std::ostream& operator<<(std::ostream &os, const dullinklist::elem_type &e)

@@ -16,6 +16,7 @@ public:
     class elem_type {
     public:
         elem_type(int e = 0) : elem(e) { }
+        bool operator<(const elem_type &rhs);
 
     friend std::ostream& operator<<(std::ostream &os, const elem_type &e);
 
@@ -46,6 +47,8 @@ public:
     dullinklist_size length() const { return len; }
     void push_back(const elem_type &e);
     void push_back(std::initializer_list<elem_type> il);
+
+    void merge_list(const dullinklist &lhs, const dullinklist &rhs);
 
 friend std::ostream& operator<<(std::ostream &os, const dullinklist &dll);
 
